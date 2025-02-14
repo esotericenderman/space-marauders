@@ -1,10 +1,8 @@
 import korlibs.event.*
-import korlibs.image.bitmap.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
-import korlibs.time.*
 
 private const val SPEED = 15.0
 private const val ROTATION_SCALE = 0.1
