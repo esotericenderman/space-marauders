@@ -22,7 +22,7 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
             if (direction.lengthSquared < 100) return@addUpdater
 
-            pos = pos.plus(direction.normalized.times(3))
+            pos = pos.plus(direction.normalized.times(15))
         }
 
         return this
