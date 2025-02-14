@@ -21,7 +21,7 @@ class Ship(private val main: Stage, private val container: SContainer) {
         image = resourcesVfs["ship.png"].readBitmap()
 
         val rendered = container.image(image) {
-            anchor(.5, .5)
+            anchor(.5, 0)
             scale(0.2)
             position(256, 256)
         }
