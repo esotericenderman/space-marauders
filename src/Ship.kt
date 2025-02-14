@@ -28,10 +28,16 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
             rendered.rotation += difference * 0.1
 
-            if (direction.lengthSquared < 800) return@addFixedUpdater
+            val distanceSquared = direction.lengthSquared
+
+            if (distanceSquared < 800) return@addFixedUpdater
+
+            val speed = if (distanceSquared > 15000) 15.0 else 15.0 * distanceSquared / 15000
+
+            println(speed)
 
             val newHeading = Vector2D.polar(rendered.rotation.minus(Angle.QUARTER))
-            pos = pos.plus(newHeading * 15)
+            pos = pos.plus(newHeading * speed)
         }
 
         return this
