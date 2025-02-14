@@ -15,37 +15,37 @@ private const val SLOW_DOWN_DISTANCE = 120
 private const val SLOW_DOWN_DISTANCE_SQUARED = SLOW_DOWN_DISTANCE * SLOW_DOWN_DISTANCE
 
 class Ship(private val main: Stage, private val container: SContainer) {
-    private lateinit var image: Bitmap
+    private lateinit var image: Image
 
     suspend fun init(): Ship {
-        image = resourcesVfs["ship.png"].readBitmap()
-
-        val rendered = container.image(image) {
+        image = container.image(resourcesVfs["ship.png"].readBitmap()) {
             anchor(.5, 0)
             scale(0.2)
             position(256, 256)
         }
 
-        rendered.addFixedUpdater(60.timesPerSecond) {
-            val direction = main.mousePos.minus(pos)
-
-            val currentAngle = rendered.rotation
-            val targetAngle = direction.angle.plus(Angle.QUARTER)
-
-            val difference = currentAngle.shortDistanceTo(targetAngle)
-
-            rendered.rotation += difference * ROTATION_SCALE
-
-            val distanceSquared = direction.lengthSquared
-
-            if (distanceSquared < MOVEMENT_DISTANCE_SQUARED) return@addFixedUpdater
-
-            val speed = if (distanceSquared > SLOW_DOWN_DISTANCE_SQUARED) SPEED else SPEED * distanceSquared / SLOW_DOWN_DISTANCE_SQUARED
-
-            val newHeading = Vector2D.polar(rendered.rotation.minus(Angle.QUARTER))
-            pos = pos.plus(newHeading * speed)
-        }
+        image.addFixedUpdater(60.timesPerSecond) { move() }
 
         return this
+    }
+
+    private fun move() {
+        val direction = main.mousePos.minus(image.pos)
+
+        val currentAngle = image.rotation
+        val targetAngle = direction.angle.plus(Angle.QUARTER)
+
+        val difference = currentAngle.shortDistanceTo(targetAngle)
+
+        image.rotation += difference * ROTATION_SCALE
+
+        val distanceSquared = direction.lengthSquared
+
+        if (distanceSquared < MOVEMENT_DISTANCE_SQUARED) return
+
+        val speed = if (distanceSquared > SLOW_DOWN_DISTANCE_SQUARED) SPEED else SPEED * distanceSquared / SLOW_DOWN_DISTANCE_SQUARED
+
+        val newHeading = Vector2D.polar(image.rotation.minus(Angle.QUARTER))
+        image.pos = image.pos.plus(newHeading * speed)
     }
 }
