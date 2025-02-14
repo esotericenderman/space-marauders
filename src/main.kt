@@ -10,7 +10,7 @@ import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 
 suspend fun main() = Korge(windowSize = Size(512, 512), backgroundColor = Colors["#2b2b2b"]) {
-	val sceneContainer = sceneContainer()
+    val sceneContainer = sceneContainer()
 
 	sceneContainer.changeTo { MyScene() }
 }
