@@ -1,3 +1,4 @@
+import korlibs.event.*
 import korlibs.image.bitmap.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
@@ -25,6 +26,12 @@ class Ship(private val main: Stage, private val container: SContainer) {
         }
 
         image.addFixedUpdater(FRAME_RATE) { move() }
+        image.addFixedUpdater(FRAME_RATE) {
+            if (main.input.mouseButtonPressed(MouseButton.MIDDLE)) {
+                fire()
+            }
+        }
+
         return this
     }
 
@@ -46,5 +53,9 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
         val newHeading = Vector2D.polar(image.rotation.minus(Angle.QUARTER))
         image.pos = image.pos.plus(newHeading * speed)
+    }
+
+    private fun fire() {
+        // TODO: Implement bullet firing.
     }
 }
