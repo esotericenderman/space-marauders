@@ -4,7 +4,7 @@ import korlibs.korge.view.*
 import korlibs.image.color.*
 import korlibs.math.geom.*
 
-suspend fun main() = Korge(windowSize = Size(1920, 1080), backgroundColor = Colors["#2b2b2b"]) {
+suspend fun main() = Korge(windowSize = Size(1920, 1080), backgroundColor = Colors["#2b2b2b"], title = "Space Marauders") {
     val sceneContainer = sceneContainer()
 
 	sceneContainer.changeTo { GameScene(this@Korge) }
