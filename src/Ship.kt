@@ -12,7 +12,7 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
         val rendered = container.image(image) {
             anchor(.5, .5)
-            scale(0.8)
+            scale(0.2)
             position(256, 256)
         }
 
