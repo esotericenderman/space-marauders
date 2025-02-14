@@ -19,6 +19,8 @@ class Ship(private val main: Stage, private val container: SContainer) {
         rendered.addUpdater {
             val direction = main.mousePos.minus(pos)
             rendered.rotation = direction.angle.plus(Angle.QUARTER)
+
+            pos = pos.plus(direction.normalized.times(3))
         }
 
         return this
