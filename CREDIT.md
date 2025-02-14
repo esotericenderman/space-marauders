@@ -1,6 +1,6 @@
 # Credit
 
-- [Korge Hello World and Template][korge-hello-world] &copy; [Carlos Ballesteros Velasco][korge-hello-world-author], licensed under the [MIT License][korge-hello-world-license].
+- [Korge Hello World and Template][korge-hello-world] &copy; 2017 [Carlos Ballesteros Velasco][korge-hello-world-author], licensed under the [MIT License][korge-hello-world-license].
 
 <!-- Link aliases -->
 
