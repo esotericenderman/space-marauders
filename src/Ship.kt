@@ -42,8 +42,6 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
             val speed = if (distanceSquared > SLOW_DOWN_DISTANCE_SQUARED) SPEED else SPEED * distanceSquared / SLOW_DOWN_DISTANCE_SQUARED
 
-            println(speed)
-
             val newHeading = Vector2D.polar(rendered.rotation.minus(Angle.QUARTER))
             pos = pos.plus(newHeading * speed)
         }
