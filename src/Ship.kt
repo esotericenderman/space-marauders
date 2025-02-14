@@ -24,7 +24,7 @@ class Ship(private val main: Stage, private val container: SContainer) {
             position(256, 256)
         }
 
-        image.addFixedUpdater(60.timesPerSecond) { move() }
+        image.addFixedUpdater(FRAME_RATE) { move() }
         return this
     }
 
