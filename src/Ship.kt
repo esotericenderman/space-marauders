@@ -4,7 +4,15 @@ import korlibs.io.file.std.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.time.*
-import kotlin.math.*
+
+private const val SPEED = 15.0
+private const val ROTATION_SCALE = 0.1
+
+private const val MOVEMENT_DISTANCE = 30
+private const val MOVEMENT_DISTANCE_SQUARED = MOVEMENT_DISTANCE * MOVEMENT_DISTANCE
+
+private const val SLOW_DOWN_DISTANCE = 120
+private const val SLOW_DOWN_DISTANCE_SQUARED = SLOW_DOWN_DISTANCE * SLOW_DOWN_DISTANCE
 
 class Ship(private val main: Stage, private val container: SContainer) {
     private lateinit var image: Bitmap
@@ -26,13 +34,13 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
             val difference = currentAngle.shortDistanceTo(targetAngle)
 
-            rendered.rotation += difference * 0.1
+            rendered.rotation += difference * ROTATION_SCALE
 
             val distanceSquared = direction.lengthSquared
 
-            if (distanceSquared < 800) return@addFixedUpdater
+            if (distanceSquared < MOVEMENT_DISTANCE_SQUARED) return@addFixedUpdater
 
-            val speed = if (distanceSquared > 15000) 15.0 else 15.0 * distanceSquared / 15000
+            val speed = if (distanceSquared > SLOW_DOWN_DISTANCE_SQUARED) SPEED else SPEED * distanceSquared / SLOW_DOWN_DISTANCE_SQUARED
 
             println(speed)
 
