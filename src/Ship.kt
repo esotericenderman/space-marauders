@@ -3,6 +3,7 @@ import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
+import korlibs.time.*
 
 class Ship(private val main: Stage, private val container: SContainer) {
     private lateinit var image: Bitmap
@@ -16,11 +17,11 @@ class Ship(private val main: Stage, private val container: SContainer) {
             position(256, 256)
         }
 
-        rendered.addUpdater {
+        rendered.addFixedUpdater(60.timesPerSecond) {
             val direction = main.mousePos.minus(pos)
             rendered.rotation = direction.angle.plus(Angle.QUARTER)
 
-            if (direction.lengthSquared < 800) return@addUpdater
+            if (direction.lengthSquared < 800) return@addFixedUpdater
 
             pos = pos.plus(direction.normalized.times(15))
         }
