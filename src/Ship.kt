@@ -25,7 +25,7 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
         image.addFixedUpdater(FRAME_RATE) { move() }
         image.addFixedUpdater(FRAME_RATE) {
-            if (main.input.mouseButtonPressed(MouseButton.MIDDLE)) {
+            if (main.input.mouseButtonPressed(MouseButton.LEFT)) {
                 fire()
             }
         }
