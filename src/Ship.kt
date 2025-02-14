@@ -2,6 +2,7 @@ import korlibs.image.bitmap.*
 import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.view.*
+import korlibs.math.geom.*
 
 class Ship(private val main: Stage, private val container: SContainer) {
     private lateinit var image: Bitmap
@@ -12,11 +13,12 @@ class Ship(private val main: Stage, private val container: SContainer) {
         val rendered = container.image(image) {
             anchor(.5, .5)
             scale(0.8)
+            position(256, 256)
         }
 
         rendered.addUpdater {
-            x = main.mousePos.x
-            y = main.mousePos.y
+            val direction = main.mousePos.minus(pos)
+            rendered.rotation = direction.angle.plus(Angle.QUARTER)
         }
 
         return this
