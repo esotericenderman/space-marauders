@@ -54,6 +54,6 @@ class Ship(private val main: Stage, private val container: SContainer) {
     }
 
     private fun fire() {
-        // TODO: Implement bullet firing.
+        TODO("Bullet firing not implemented.")
     }
 }
