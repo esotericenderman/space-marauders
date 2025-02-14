@@ -4,6 +4,7 @@ import korlibs.io.file.std.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.time.*
+import kotlin.math.*
 
 class Ship(private val main: Stage, private val container: SContainer) {
     private lateinit var image: Bitmap
@@ -19,11 +20,18 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
         rendered.addFixedUpdater(60.timesPerSecond) {
             val direction = main.mousePos.minus(pos)
-            rendered.rotation = direction.angle.plus(Angle.QUARTER)
+
+            val currentAngle = rendered.rotation
+            val targetAngle = direction.angle.plus(Angle.QUARTER)
+
+            val difference = currentAngle.shortDistanceTo(targetAngle)
+
+            rendered.rotation += difference * 0.1
 
             if (direction.lengthSquared < 800) return@addFixedUpdater
 
-            pos = pos.plus(direction.normalized.times(15))
+            val newHeading = Vector2D.polar(rendered.rotation.minus(Angle.QUARTER))
+            pos = pos.plus(newHeading * 15)
         }
 
         return this
