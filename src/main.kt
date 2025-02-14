@@ -7,11 +7,11 @@ import korlibs.math.geom.*
 suspend fun main() = Korge(windowSize = Size(512, 512), backgroundColor = Colors["#2b2b2b"]) {
     val sceneContainer = sceneContainer()
 
-	sceneContainer.changeTo { GameScene() }
+	sceneContainer.changeTo { GameScene(this@Korge) }
 }
 
-class GameScene : Scene() {
+class GameScene(private val main: Stage) : Scene() {
 	override suspend fun SContainer.sceneMain() {
-        val ship = Ship(this).init()
+        val ship = Ship(main, this).init()
 	}
 }

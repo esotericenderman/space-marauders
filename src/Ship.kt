@@ -3,19 +3,20 @@ import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.view.*
 
-class Ship(private val container: SContainer) {
-    private val x: Int = 0
-    private val y: Int = 0
-
-    lateinit var image: Bitmap
+class Ship(private val main: Stage, private val container: SContainer) {
+    private lateinit var image: Bitmap
 
     suspend fun init(): Ship {
         image = resourcesVfs["ship.png"].readBitmap()
 
-        container.image(image) {
+        val rendered = container.image(image) {
             anchor(.5, .5)
             scale(0.8)
-            position(256, 256)
+        }
+
+        rendered.addUpdater {
+            x = main.mousePos.x
+            y = main.mousePos.y
         }
 
         return this
