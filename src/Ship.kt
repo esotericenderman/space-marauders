@@ -20,7 +20,7 @@ class Ship(private val main: Stage, private val container: SContainer) {
         image = container.image(resourcesVfs["ship.png"].readBitmap()) {
             anchor(.5, 0)
             scale(0.2)
-            position(256, 256)
+            position(main.windowBounds.center)
         }
 
         image.addFixedUpdater(FRAME_RATE) { move() }
