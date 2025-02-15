@@ -1,13 +1,12 @@
 import korlibs.event.*
 import korlibs.image.color.*
-import korlibs.image.format.*
 import korlibs.image.vector.*
-import korlibs.io.file.std.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
-import korlibs.math.geom.shape.*
 
-private const val SPEED = 15.0
+private const val FORWARD_SPEED = 15.0
+private const val BACKWARD_SPEED = -5
+
 private const val ROTATION_SCALE = 0.1
 
 private const val MOVEMENT_DISTANCE = 30
@@ -37,8 +36,14 @@ class Ship(private val main: Stage, private val container: SContainer) {
         image.addFixedUpdater(FRAME_RATE) {
             rotate()
 
-            if (main.input.keys.pressing(Key.W)) {
-                move()
+            val keys = main.input.keys
+
+            if (keys.pressing(Key.W)) {
+                moveForward()
+            }
+
+            if (keys.pressing(Key.S)) {
+                moveBackward()
             }
         }
         image.addFixedUpdater(FRAME_RATE) {
@@ -61,14 +66,21 @@ class Ship(private val main: Stage, private val container: SContainer) {
         image.rotation += difference * ROTATION_SCALE
     }
 
-    private fun move() {
+    private fun moveForward() {
         val direction = main.mousePos.minus(image.pos)
 
         val distanceSquared = direction.lengthSquared
 
         if (distanceSquared < MOVEMENT_DISTANCE_SQUARED) return
 
-        val speed = if (distanceSquared > SLOW_DOWN_DISTANCE_SQUARED) SPEED else SPEED * distanceSquared / SLOW_DOWN_DISTANCE_SQUARED
+        val speed = if (distanceSquared > SLOW_DOWN_DISTANCE_SQUARED) FORWARD_SPEED else FORWARD_SPEED * distanceSquared / SLOW_DOWN_DISTANCE_SQUARED
+
+        val newHeading = Vector2D.polar(image.rotation.minus(Angle.QUARTER))
+        image.pos = image.pos.plus(newHeading * speed)
+    }
+
+    private fun moveBackward() {
+        val speed = BACKWARD_SPEED
 
         val newHeading = Vector2D.polar(image.rotation.minus(Angle.QUARTER))
         image.pos = image.pos.plus(newHeading * speed)
