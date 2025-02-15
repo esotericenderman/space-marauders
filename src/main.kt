@@ -16,8 +16,11 @@ suspend fun main() = Korge(windowSize = Size(1920, 1080), backgroundColor = Colo
 }
 
 class GameScene(private val main: Stage) : Scene() {
+    lateinit var ship: Ship
+
 	override suspend fun SContainer.sceneMain() {
-        val ship = Ship(main, this).init()
+        ship = Ship(main, this).init()
+        val spawner = EnemySpawner(main, this@GameScene)
 
         addFixedUpdater(FRAME_RATE) {
             if (input.keys.pressing(Key.ESCAPE)) {

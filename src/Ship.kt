@@ -19,7 +19,7 @@ private const val SLOW_DOWN_DISTANCE_SQUARED = SLOW_DOWN_DISTANCE * SLOW_DOWN_DI
 private const val SHOT_COOLDOWN = 5
 
 class Ship(private val main: Stage, private val container: SContainer) {
-    private lateinit var image: Graphics
+    lateinit var image: Graphics
 
     private var shotCooldown = SHOT_COOLDOWN + 1
 
