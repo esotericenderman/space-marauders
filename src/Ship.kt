@@ -54,6 +54,6 @@ class Ship(private val main: Stage, private val container: SContainer) {
     }
 
     private fun fire() {
-        TODO("Bullet firing not implemented.")
+        Bullet(container, image.pos, Vector2D.polar(image.rotation.minus(Angle.QUARTER)))
     }
 }
