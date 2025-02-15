@@ -7,6 +7,8 @@ plugins {
 korge {
 	id = "com.sample.demo"
 
+    jvmMainClassName = "MainKt"
+
 // To enable all targets at once
 
 	//targetAll()
