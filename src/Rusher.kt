@@ -3,7 +3,7 @@ import korlibs.image.vector.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 
-private const val TARGET_DISTANCE = 800
+private const val TARGET_DISTANCE = 450
 private const val TARGET_DISTANCE_SQUARED = TARGET_DISTANCE * TARGET_DISTANCE
 
 class Rusher(private val main: Stage, private val container: GameScene) {
