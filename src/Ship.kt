@@ -54,6 +54,6 @@ class Ship(private val main: Stage, private val container: SContainer) {
     }
 
     private fun fire() {
-        Bullet(container, image.pos, Vector2D.polar(image.rotation.minus(Angle.QUARTER)))
+        Bullet(main, container, image.pos, Vector2D.polar(image.rotation.minus(Angle.QUARTER)))
     }
 }
