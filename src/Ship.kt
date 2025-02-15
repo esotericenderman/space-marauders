@@ -1,8 +1,11 @@
 import korlibs.event.*
+import korlibs.image.color.*
 import korlibs.image.format.*
+import korlibs.image.vector.*
 import korlibs.io.file.std.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
+import korlibs.math.geom.shape.*
 
 private const val SPEED = 15.0
 private const val ROTATION_SCALE = 0.1
@@ -14,11 +17,19 @@ private const val SLOW_DOWN_DISTANCE = 120
 private const val SLOW_DOWN_DISTANCE_SQUARED = SLOW_DOWN_DISTANCE * SLOW_DOWN_DISTANCE
 
 class Ship(private val main: Stage, private val container: SContainer) {
-    private lateinit var image: Image
+    private lateinit var image: Graphics
 
-    suspend fun init(): Ship {
-        image = container.image(resourcesVfs["ship.png"].readBitmap()) {
-            anchor(.5, 0)
+    fun init(): Ship {
+        val shape = ShapeBuilder(256 ,256)
+
+        shape.polygon(Point(0, 256), Point(128, 128), Point(256, 256), Point(128, 0))
+        shape.createColor(RGBA.Companion.float(255.0, 255.0, 255.0, 1.0))
+        shape.fill(RGBA.Companion.float(255.0, 255.0, 255.0, 1.0))
+
+        val built = shape.buildShape()
+
+        image = container.graphics(built) {
+            anchor(0.5, 0)
             scale(0.2)
             position(main.windowBounds.center)
         }
