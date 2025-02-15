@@ -6,6 +6,7 @@ import korlibs.math.geom.*
 
 private const val FORWARD_SPEED = 15.0
 private const val BACKWARD_SPEED = -5
+private const val SIDEWAYS_SPEED = 7.5
 
 private const val ROTATION_SCALE = 0.1
 
@@ -44,6 +45,19 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
             if (keys.pressing(Key.S)) {
                 moveBackward()
+            }
+
+            val movingRight = keys.pressing(Key.D)
+            val movingLeft = keys.pressing(Key.A)
+
+            if (movingRight) {
+                if (movingLeft) {
+                    return@addFixedUpdater
+                }
+
+                moveRight()
+            } else if (movingLeft) {
+                moveLeft()
             }
         }
         image.addFixedUpdater(FRAME_RATE) {
@@ -84,6 +98,18 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
         val newHeading = Vector2D.polar(image.rotation.minus(Angle.QUARTER))
         image.pos = image.pos.plus(newHeading * speed)
+    }
+
+    private fun moveRight() {
+        val newHeading = Vector2D.polar(image.rotation.minus(Angle.HALF))
+
+        image.pos = image.pos.plus(newHeading * SIDEWAYS_SPEED)
+    }
+
+    private fun moveLeft() {
+        val newHeading = Vector2D.polar(image.rotation)
+
+        image.pos = image.pos.plus(newHeading * SIDEWAYS_SPEED)
     }
 
     private fun fire() {
