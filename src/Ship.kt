@@ -16,8 +16,12 @@ private const val MOVEMENT_DISTANCE_SQUARED = MOVEMENT_DISTANCE * MOVEMENT_DISTA
 private const val SLOW_DOWN_DISTANCE = 120
 private const val SLOW_DOWN_DISTANCE_SQUARED = SLOW_DOWN_DISTANCE * SLOW_DOWN_DISTANCE
 
+private const val SHOT_COOLDOWN = 5
+
 class Ship(private val main: Stage, private val container: SContainer) {
     private lateinit var image: Graphics
+
+    private var shotCooldown = SHOT_COOLDOWN + 1
 
     fun init(): Ship {
         val shape = ShapeBuilder(256 ,256)
@@ -62,6 +66,9 @@ class Ship(private val main: Stage, private val container: SContainer) {
         }
         image.addFixedUpdater(FRAME_RATE) {
             if (main.input.mouseButtonPressed(MouseButton.LEFT)) {
+                shotCooldown--
+                if (shotCooldown > 0) return@addFixedUpdater
+
                 fire()
             }
         }
@@ -114,5 +121,7 @@ class Ship(private val main: Stage, private val container: SContainer) {
 
     private fun fire() {
         Bullet(main, container, image.pos, Vector2D.polar(image.rotation.minus(Angle.QUARTER)))
+
+        shotCooldown = SHOT_COOLDOWN + 1
     }
 }
