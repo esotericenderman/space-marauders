@@ -101,13 +101,13 @@ class Ship(private val main: Stage, private val container: SContainer) {
     }
 
     private fun moveRight() {
-        val newHeading = Vector2D.polar(image.rotation.minus(Angle.HALF))
+        val newHeading = Vector2D.polar(image.rotation)
 
         image.pos = image.pos.plus(newHeading * SIDEWAYS_SPEED)
     }
 
     private fun moveLeft() {
-        val newHeading = Vector2D.polar(image.rotation)
+        val newHeading = Vector2D.polar(image.rotation.plus(Angle.HALF))
 
         image.pos = image.pos.plus(newHeading * SIDEWAYS_SPEED)
     }
