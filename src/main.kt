@@ -17,8 +17,11 @@ suspend fun main() = Korge(windowSize = Size(1920, 1080), backgroundColor = Colo
 
 class GameScene(private val main: Stage) : Scene() {
     lateinit var ship: Ship
+    lateinit var sContainer: SContainer
 
 	override suspend fun SContainer.sceneMain() {
+        sContainer = this@sceneMain
+
         ship = Ship(main, this).init()
         val spawner = EnemySpawner(main, this@GameScene)
 

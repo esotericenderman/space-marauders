@@ -2,6 +2,7 @@ import korlibs.image.color.*
 import korlibs.image.vector.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
+import korlibs.time.*
 
 private const val TARGET_DISTANCE = 450
 private const val TARGET_DISTANCE_SQUARED = TARGET_DISTANCE * TARGET_DISTANCE
@@ -33,6 +34,10 @@ class Rusher(private val main: Stage, private val container: GameScene) {
         image.addFixedUpdater(FRAME_RATE) {
             move()
         }
+
+        image.addFixedUpdater(0.1.timesPerSecond) {
+            shoot()
+        }
     }
 
     private fun rotate() {
@@ -58,5 +63,9 @@ class Rusher(private val main: Stage, private val container: GameScene) {
         if (distanceToTargetSquared < 200) return
 
         image.pos += movementDirection.normalized * 5
+    }
+
+    private fun shoot() {
+        Bullet(main, container.sContainer, image.pos, Vector2D.polar(image.rotation.minus(Angle.QUARTER)))
     }
 }
