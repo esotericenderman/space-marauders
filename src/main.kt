@@ -1,7 +1,9 @@
+import korlibs.event.*
 import korlibs.korge.*
 import korlibs.korge.scene.*
 import korlibs.korge.view.*
 import korlibs.image.color.*
+import korlibs.korge.input.*
 import korlibs.math.geom.*
 import korlibs.time.*
 
@@ -16,5 +18,11 @@ suspend fun main() = Korge(windowSize = Size(1920, 1080), backgroundColor = Colo
 class GameScene(private val main: Stage) : Scene() {
 	override suspend fun SContainer.sceneMain() {
         val ship = Ship(main, this).init()
+
+        addFixedUpdater(FRAME_RATE) {
+            if (input.keys.pressing(Key.ESCAPE)) {
+                main.gameWindow.close()
+            }
+        }
 	}
 }
