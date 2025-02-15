@@ -23,7 +23,13 @@ class Ship(private val main: Stage, private val container: SContainer) {
             position(main.windowBounds.center)
         }
 
-        image.addFixedUpdater(FRAME_RATE) { move() }
+        image.addFixedUpdater(FRAME_RATE) {
+            rotate()
+
+            if (main.input.keys.pressing(Key.W)) {
+                move()
+            }
+        }
         image.addFixedUpdater(FRAME_RATE) {
             if (main.input.mouseButtonPressed(MouseButton.LEFT)) {
                 fire()
@@ -33,7 +39,7 @@ class Ship(private val main: Stage, private val container: SContainer) {
         return this
     }
 
-    private fun move() {
+    private fun rotate() {
         val direction = main.mousePos.minus(image.pos)
 
         val currentAngle = image.rotation
@@ -42,6 +48,10 @@ class Ship(private val main: Stage, private val container: SContainer) {
         val difference = currentAngle.shortDistanceTo(targetAngle)
 
         image.rotation += difference * ROTATION_SCALE
+    }
+
+    private fun move() {
+        val direction = main.mousePos.minus(image.pos)
 
         val distanceSquared = direction.lengthSquared
 
