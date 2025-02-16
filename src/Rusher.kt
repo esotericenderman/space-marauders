@@ -10,7 +10,7 @@ private const val TARGET_DISTANCE_SQUARED = TARGET_DISTANCE * TARGET_DISTANCE
 class Rusher(private val main: Stage, private val container: GameScene) {
     private lateinit var image: Graphics
 
-    fun init() {
+    fun init(position: Vector2D) {
         val builder = ShapeBuilder(256, 256)
 
         val yellow = RGBA.Companion.float(0.75, 0.75, 0.25, 1.0)
@@ -24,7 +24,7 @@ class Rusher(private val main: Stage, private val container: GameScene) {
         image = container.sceneContainer.graphics(built) {
             anchor(0.0, 0.0)
             scale(0.2)
-            position(main.windowBounds.center)
+            position(position)
         }
 
         image.addFixedUpdater(FRAME_RATE) {
